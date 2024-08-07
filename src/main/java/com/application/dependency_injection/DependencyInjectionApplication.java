@@ -8,6 +8,7 @@ public class DependencyInjectionApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DependencyInjectionApplication.class, args);
+
 	}
 
 }
