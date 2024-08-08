@@ -14,6 +14,15 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
     private final Map<Long, Employee> employeeMap= new HashMap<>();
 
     @Override
+    public void addEmployee(Employee employee) {
+        if( employee.getEmployeeId() != null){
+            employeeMap.put(employee.getEmployeeId(), employee);
+        } else {
+            throw new IllegalArgumentException("Employee or its ID cannot be null");
+        }
+    }
+
+    @Override
     public Employee getEmployee(Long id) {
         return employeeMap.get(id);
     }

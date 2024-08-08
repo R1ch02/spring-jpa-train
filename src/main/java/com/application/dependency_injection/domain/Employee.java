@@ -13,7 +13,22 @@ public class Employee {
     private String employeeSurname;
     private String employeePatron;
     private String employeeAddress;
-    private Date employeeBirth;
+    private String employeeBirth;
     private String employeeDepartment;
     private String employeePost;
+
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId=" + employeeId +
+                ", employeeName='" + employeeName + '\'' +
+                ", employeeSurname='" + employeeSurname + '\'' +
+                ", employeePatron='" + employeePatron + '\'' +
+                ", employeeAddress='" + employeeAddress + '\'' +
+                ", employeeBirth='" + employeeBirth + '\'' +
+                ", employeeDepartment='" + employeeDepartment + '\'' +
+                ", employeePost='" + employeePost + '\'' +
+                '}';
+    }
 }

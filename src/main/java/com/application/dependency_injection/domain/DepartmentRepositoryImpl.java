@@ -15,6 +15,15 @@ public class DepartmentRepositoryImpl implements DepartmentRepository{
 
 
     @Override
+    public void addDepartment(Department department) {
+        if (department.getDepartmentId() != null){
+            departmentMap.put(department.getDepartmentId(),department);
+        } else {
+            throw new IllegalArgumentException("Department or its ID cannot be null");
+        }
+    }
+
+    @Override
     public Department getDepartment(Long id) {
         return departmentMap.get(id);
     }
