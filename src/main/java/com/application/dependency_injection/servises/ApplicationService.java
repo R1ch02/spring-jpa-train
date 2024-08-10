@@ -1,23 +1,68 @@
 package com.application.dependency_injection.servises;
 
-import com.application.dependency_injection.domain.Department;
-import com.application.dependency_injection.domain.Employee;
+import com.application.dependency_injection.domain.department.Department;
+import com.application.dependency_injection.domain.department.DepartmentRepository;
+import com.application.dependency_injection.domain.employee.Staff;
+import com.application.dependency_injection.domain.employee.StaffRepository;
+import com.application.dependency_injection.domain.organisation.OrganisationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface ApplicationService {
+@Service
+public class ApplicationService{
 
-    void addEmployee(Employee employee);
-    Employee getEmployee(Long id);
-    void editEmployee(Employee updatedEmployee);
-    void removeEmployee(Long id);
-    List<Employee> getEmployees();
+    @Autowired
+    private StaffRepository staffRepository;
 
-    void addDepartment(Department department);
-    Department getDepartment(Long id);
-    void editDepartment(Department updatedDepartment);
-    void removeDepartment(Long id);
-    List<Department> getDepartments();
+    @Autowired
+    private DepartmentRepository departmentRepository;
+
+    @Autowired
+    private OrganisationRepository organisationRepository;
 
 
+    public void addStaff(Staff staff) {
+        staffRepository.addStaff(staff);
+    }
+
+    public Staff getStaff(Long id) {
+        return staffRepository.getStaff(id);
+    }
+
+    public void editStaff(Staff updatedStaff) {
+        staffRepository.editStaff(updatedStaff);
+    }
+
+    public void removeStaff(Long id) {
+        staffRepository.removeStaff(id);
+    }
+
+    public List<Staff> getAllStaff() {
+        return staffRepository.getAllStaff();
+    }
+
+
+
+
+    public void addDepartment(Department department) {
+        departmentRepository.addDepartment(department);
+    }
+
+    public Department getDepartment(Long id) {
+        return departmentRepository.getDepartment(id);
+    }
+
+    public void editDepartment(Department updatedDepartment) {
+        departmentRepository.editDepartment(updatedDepartment);
+    }
+
+    public void removeDepartment(Long id) {
+        departmentRepository.removeDepartment(id);
+    }
+
+    public List<Department> getDepartments() {
+        return departmentRepository.getDepartments();
+    }
 }

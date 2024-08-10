@@ -1,22 +1,22 @@
 package com.application.dependency_injection.view;
 
-import com.application.dependency_injection.domain.Department;
-import com.application.dependency_injection.domain.Employee;
+import com.application.dependency_injection.domain.department.Department;
+import com.application.dependency_injection.domain.employee.Staff;
 import com.application.dependency_injection.servises.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 @Component
 public class ConsoleApp implements CommandLineRunner {
 
-    private Long employeeId = 0L;
-    private Long departmentId = 0L;
-
     @Autowired
     private ApplicationService applicationService;
-
+    //TODO разобраться
     @Override
     public void run(String... args) throws Exception {
 
@@ -37,43 +37,47 @@ public class ConsoleApp implements CommandLineRunner {
             switch (choice) {
                 case 1:
                     // Добавление сотрудника
-
-                    Employee employee = new Employee();
-                    employeeId++;
-                    employee.setEmployeeId(employeeId);
-                    System.out.print("Введите фамилию: ");
-                    employee.setEmployeeSurname(scanner.nextLine());
-                    System.out.println("Введите имя: ");
-                    employee.setEmployeeName(scanner.nextLine());
-                    System.out.println("Введите отчество: ");
-                    employee.setEmployeePatron(scanner.nextLine());
+                    Staff staff = new Staff();
+                    System.out.print("Введите ФИО: ");
+                    staff.setFullName(scanner.nextLine());
                     System.out.print("Введите адрес: ");
-                    employee.setEmployeeAddress(scanner.nextLine());
+                    staff.setAddress(scanner.nextLine());
                     System.out.println("Введите должность: ");
-                    employee.setEmployeePost(scanner.nextLine());
+                    staff.setPost(scanner.nextLine());
                     System.out.println("Введите дату рождения: ");
-                    employee.setEmployeeBirth(scanner.nextLine());
-                    System.out.println("Введите отдел работы: ");
-                    employee.setEmployeeDepartment(scanner.nextLine());
-                    applicationService.addEmployee(employee);
+                    //TODO try catch
+                    staff.setBirth(LocalDate.parse(scanner.nextLine()));
+                    System.out.println("При завершении списка наберите 'end'" + '\n' + "Введите отделы работы: " );
+                    List<String> departamentList = new ArrayList<>();
+                    String currentDepartment;
+                    while(true){
+                        currentDepartment = scanner.nextLine();
+                        if(currentDepartment.equals("end")){
+                            break;
+                        } else {
+                            departamentList.add(currentDepartment);
+                        }
+                    }
+                    staff.setDepartments(departamentList);
+                    applicationService.addStaff(staff);
                     System.out.println("Сотрудник добавлен.");
                     break;
 
                 case 2:
                     // Удаление сотрудника
                     System.out.print("Введите ID сотрудника для удаления: ");
-                    Long employeeId = scanner.nextLong();
-                    applicationService.removeEmployee(employeeId);
+                    Long staffId = scanner.nextLong();
+                    applicationService.removeStaff(staffId);
                     System.out.println("Сотрудник удален.");
                     break;
 
                 case 3:
                     // Поиск сотрудника
                     System.out.print("Введите ID сотрудника для поиска: ");
-                    employeeId = scanner.nextLong();
-                    Employee foundEmployee = applicationService.getEmployee(employeeId);
-                    if (foundEmployee != null) {
-                        System.out.println("Найденный сотрудник: " + '\n' + foundEmployee);
+                    staffId = scanner.nextLong();
+                    Staff foundStaff = applicationService.getStaff(staffId);
+                    if (foundStaff != null) {
+                        System.out.println("Найденный сотрудник: " + '\n' + foundStaff);
                     } else {
                         System.out.println("Сотрудник не найден.");
                     }
@@ -82,13 +86,11 @@ public class ConsoleApp implements CommandLineRunner {
                 case 4:
                     // Добавление отдела
                     Department department = new Department();
-                    departmentId++;
-                    department.setDepartmentId(departmentId);
                     System.out.print("Введите название отдела: ");
-                    department.setDepartmentName(scanner.nextLine());
-                    System.out.println("Введите количество сотрудников в отделе");
-                    department.setEmployeeCount(scanner.nextInt());
-                    // Установите другие поля по необходимости
+                    department.setName(scanner.nextLine());
+                    // TODO доделать department
+
+
                     applicationService.addDepartment(department);
                     System.out.println("Отдел добавлен.");
                     break;
