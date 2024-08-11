@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 @Component
 public class ConsoleApp implements CommandLineRunner {
@@ -58,7 +59,7 @@ public class ConsoleApp implements CommandLineRunner {
                             departamentList.add(currentDepartment);
                         }
                     }
-                    staff.setDepartments(departamentList);
+
                     applicationService.addStaff(staff);
                     System.out.println("Сотрудник добавлен.");
                     break;
@@ -67,7 +68,7 @@ public class ConsoleApp implements CommandLineRunner {
                     // Удаление сотрудника
                     System.out.print("Введите ID сотрудника для удаления: ");
                     Long staffId = scanner.nextLong();
-                    applicationService.removeStaff(staffId);
+                    applicationService.deleteStaff(staffId);
                     System.out.println("Сотрудник удален.");
                     break;
 
@@ -75,9 +76,9 @@ public class ConsoleApp implements CommandLineRunner {
                     // Поиск сотрудника
                     System.out.print("Введите ID сотрудника для поиска: ");
                     staffId = scanner.nextLong();
-                    Staff foundStaff = applicationService.getStaff(staffId);
-                    if (foundStaff != null) {
-                        System.out.println("Найденный сотрудник: " + '\n' + foundStaff);
+                    Optional<Staff> foundStaff = applicationService.findStaffById(staffId);
+                    if (foundStaff.isPresent()) {
+                        System.out.println("Найденный сотрудник: " + '\n' + foundStaff.orElse(null));
                     } else {
                         System.out.println("Сотрудник не найден.");
                     }
@@ -99,7 +100,7 @@ public class ConsoleApp implements CommandLineRunner {
                     // Удаление отдела
                     System.out.print("Введите ID отдела для удаления: ");
                     Long departmentId = scanner.nextLong();
-                    applicationService.removeDepartment(departmentId);
+                    applicationService.deleteDepartment(departmentId);
                     System.out.println("Отдел удален.");
                     break;
 
@@ -107,13 +108,15 @@ public class ConsoleApp implements CommandLineRunner {
                     // Поиск отдела
                     System.out.print("Введите ID отдела для поиска: ");
                     departmentId = scanner.nextLong();
-                    Department foundDepartment = applicationService.getDepartment(departmentId);
-                    if (foundDepartment != null) {
-                        System.out.println("Найденный отдел: " + '\n' + foundDepartment);
+                    Optional<Department> foundDepartment = applicationService.findDepartmentById(departmentId);
+                    if (foundDepartment.isPresent()) {
+                        System.out.println("Найденный отдел: " + '\n' + foundDepartment.orElse(null));
                     } else {
                         System.out.println("Отдел не найден.");
                     }
                     break;
+
+                    //TODO сделать меню работы с Organisation
 
                 case 0:
                     System.out.println("Выход...");

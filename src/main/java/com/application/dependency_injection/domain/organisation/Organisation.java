@@ -1,9 +1,7 @@
 package com.application.dependency_injection.domain.organisation;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.application.dependency_injection.domain.employee.Staff;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,8 +9,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Organisation {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    //TODO доделать поля
+
+    private String name;
+    private String address;
+
+    @OneToOne
+    @JoinColumn(name = "head_id")
+    private Staff head;
 }

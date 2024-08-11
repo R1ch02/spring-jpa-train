@@ -1,5 +1,6 @@
 package com.application.dependency_injection.domain.employee;
 
+import com.application.dependency_injection.domain.department.Department;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import java.util.List;
 public class Staff {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String fullName;
@@ -22,7 +23,7 @@ public class Staff {
     private String post;
 
     @ManyToMany(mappedBy = "staffMembers")
-    private List<String> departments;
+    private List<Department> departments;
 
 
 }

@@ -8,9 +8,5 @@ import java.util.List;
 @Repository
 public interface StaffRepository extends JpaRepository<Staff,Long> {
 
-    void addStaff(Staff staff);
-    Staff getStaff(Long id);
-    void editStaff(Staff updatedStaff);
-    void removeStaff(Long id);
-    List<Staff> getAllStaff();
+
 }

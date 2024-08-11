@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ApplicationService{
@@ -23,46 +24,52 @@ public class ApplicationService{
     private OrganisationRepository organisationRepository;
 
 
+    // Staff methods
+
     public void addStaff(Staff staff) {
-        staffRepository.addStaff(staff);
+        staffRepository.save(staff);
     }
 
-    public Staff getStaff(Long id) {
-        return staffRepository.getStaff(id);
+    public Optional<Staff> findStaffById(Long id) {
+        return staffRepository.findById(id);
     }
-
+    //TODO доработать
     public void editStaff(Staff updatedStaff) {
-        staffRepository.editStaff(updatedStaff);
+        staffRepository.save(updatedStaff);
     }
 
-    public void removeStaff(Long id) {
-        staffRepository.removeStaff(id);
+    public void deleteStaff(Long id) {
+        staffRepository.deleteById(id);
     }
 
-    public List<Staff> getAllStaff() {
-        return staffRepository.getAllStaff();
+    public List<Staff> findAllStaff() {
+        return staffRepository.findAll();
     }
 
 
-
+    // Departments methods
 
     public void addDepartment(Department department) {
-        departmentRepository.addDepartment(department);
+        departmentRepository.save(department);
     }
 
-    public Department getDepartment(Long id) {
-        return departmentRepository.getDepartment(id);
+    public Optional<Department> findDepartmentById(Long id) {
+        return departmentRepository.findById(id);
     }
-
+    //TODO Доработать
     public void editDepartment(Department updatedDepartment) {
-        departmentRepository.editDepartment(updatedDepartment);
+        departmentRepository.save(updatedDepartment);
     }
 
-    public void removeDepartment(Long id) {
-        departmentRepository.removeDepartment(id);
+    public void deleteDepartment(Long id) {
+        departmentRepository.deleteById(id);
     }
 
-    public List<Department> getDepartments() {
-        return departmentRepository.getDepartments();
+    public List<Department> findAllDepartments() {
+        return departmentRepository.findAll();
     }
+
+    // Organisation methods
+
+
 }
